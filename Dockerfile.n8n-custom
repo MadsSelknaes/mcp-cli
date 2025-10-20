@@ -1,0 +1,20 @@
+# Custom n8n Docker image with MCP client node pre-installed
+FROM n8nio/n8n:latest
+
+# Switch to root to install packages
+USER root
+
+# Install n8n-nodes-mcp-client globally
+RUN npm install -g n8n-nodes-mcp-client
+
+# Create custom nodes directory
+RUN mkdir -p /home/node/.n8n/custom
+
+# Switch back to node user
+USER node
+
+# Set working directory
+WORKDIR /home/node
+
+# Default command
+CMD ["n8n", "start"]
